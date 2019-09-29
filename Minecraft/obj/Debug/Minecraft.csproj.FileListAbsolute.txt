@@ -1,0 +1,10 @@
+C:\Users\konst\source\repos\Minecraft\Minecraft\bin\Debug\Minecraft.exe.config
+C:\Users\konst\source\repos\Minecraft\Minecraft\bin\Debug\Minecraft.exe
+C:\Users\konst\source\repos\Minecraft\Minecraft\bin\Debug\Minecraft.pdb
+C:\Users\konst\source\repos\Minecraft\Minecraft\obj\Debug\Minecraft.csprojAssemblyReference.cache
+C:\Users\konst\source\repos\Minecraft\Minecraft\obj\Debug\Minecraft.Form1.resources
+C:\Users\konst\source\repos\Minecraft\Minecraft\obj\Debug\Minecraft.Properties.Resources.resources
+C:\Users\konst\source\repos\Minecraft\Minecraft\obj\Debug\Minecraft.csproj.GenerateResource.cache
+C:\Users\konst\source\repos\Minecraft\Minecraft\obj\Debug\Minecraft.csproj.CoreCompileInputs.cache
+C:\Users\konst\source\repos\Minecraft\Minecraft\obj\Debug\Minecraft.exe
+C:\Users\konst\source\repos\Minecraft\Minecraft\obj\Debug\Minecraft.pdb
