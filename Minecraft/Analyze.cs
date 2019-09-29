@@ -10,7 +10,7 @@ namespace Minecraft
     {
         static public string[] _symbols = { "==", "||", "&&", "&", "|", "<", ">", "!=", "++", "--",
                                             "*", "/", "%", "!", "=", "+", "-", "{", "(", ".", ";",
-                                            ":", "[", "," };
+                                            ":", "[", ",", "??" };
 
         static public string[] _functions = { "random", "print", "println", "toString" };
 
@@ -22,7 +22,7 @@ namespace Minecraft
                                               "continue", "goto", "new", "random", "print", "println",
                                               "==", "||", "&&", "&", "|", "<", ">", "!=", "++", "--",
                                               "*", "/", "%", "!", "=", "+", "-", "{", "(", ".", ";",
-                                              ":", "[", ",", "else", "toString" };
+                                              ":", "[", ",", "else", "toString", "??" };
 
         static private int Count(string _str, string _sym)
         {
@@ -208,6 +208,13 @@ namespace Minecraft
                         _dictionary["("]--;
 
                 //
+                //  do while
+                //
+
+                if (_dictionary.ContainsKey("while") && _dictionary.ContainsKey("do"))
+                    _dictionary["while"] -= _dictionary["do"];
+
+                //
                 //  ADD last world to dictionary
                 //
 
@@ -228,6 +235,10 @@ namespace Minecraft
                 if (_dictionary.ContainsKey("("))
                     if (_dictionary["("] == 0)
                         _dictionary.Remove("(");
+
+                if (_dictionary.ContainsKey("while"))
+                    if (_dictionary["while"] == 0)
+                        _dictionary.Remove("while");
 
                 _listDictionary.Add(_dictionary);   
             }
