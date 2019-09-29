@@ -20,7 +20,7 @@ namespace Minecraft
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            LengthDick.Text = "Length : 0\r\nDick : 0\r\nVolume : 0";
+            LengthDick.Text = "Length      : 0\r\nDictionary : 0\r\nVolume     : 0";
         }
 
         private void Button1_Click(object sender, EventArgs e)
@@ -121,9 +121,9 @@ namespace Minecraft
                 }
 
             LengthDick.Text = 
-                "Length : " + (N1 + N2).ToString() + "\r\n" +
-                "Dick : " + (i + j - 2).ToString() + "\r\n" +
-                "Volume : " + ((int)((N1 + N2) * Math.Log(i + j - 2, 2))).ToString();
+                "Length     : " + (N1 + N2).ToString() + "\r\n" +
+                "Dictionary : " + (i + j - 2).ToString() + "\r\n" +
+                "Volume     : " + ((int)((N1 + N2) * Math.Log(i + j - 2, 2))).ToString();
 
         }
 
