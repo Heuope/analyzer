@@ -16,13 +16,14 @@ namespace Minecraft
 
         static private string[] _banWords = { "Math", "System", "", "out", "IO", "int", "float",
                                               "double", "public", "static", "void", "main", "String",
-                                              "args" };
+                                              "args", "Random", "Color", "Font", "File" };
 
         static public string[] _operators = { "for", "if", "switch", "case", "do", "while", "break",
                                               "continue", "goto", "new", "random", "print", "println",
                                               "==", "||", "&&", "&", "|", "<", ">", "!=", "++", "--",
                                               "*", "/", "%", "!", "=", "+", "-", "{", "(", ".", ";",
-                                              ":", "[", ",", "else", "toString", "??" };
+                                              ":", "[", ",", "else", "toString", "??", "try", "catch",
+                                              "finaly"};
 
         static private int Count(string _str, string _sym)
         {
@@ -208,13 +209,6 @@ namespace Minecraft
                         _dictionary["("]--;
 
                 //
-                //  do while
-                //
-
-                if (_dictionary.ContainsKey("while") && _dictionary.ContainsKey("do"))
-                    _dictionary["while"] -= _dictionary["do"];
-
-                //
                 //  ADD last world to dictionary
                 //
 
@@ -225,7 +219,31 @@ namespace Minecraft
                         _dictionary[item]++;
 
                 //
-                //  Ban words from _banWords
+                //  do while
+                //
+
+                if (_dictionary.ContainsKey("while") && _dictionary.ContainsKey("do"))
+                    _dictionary["while"] -= _dictionary["do"];
+
+                //
+                // if else
+                //
+
+                if (_dictionary.ContainsKey("if") && _dictionary.ContainsKey("else"))
+                    _dictionary["if"] -= _dictionary["else"];                              
+
+                //
+                // try catch finaly
+                //
+
+                if (_dictionary.ContainsKey("try") && _dictionary.ContainsKey("catch"))
+                    _dictionary["try"] -= _dictionary["catch"];
+
+                if (_dictionary.ContainsKey("try") && _dictionary.ContainsKey("finaly"))
+                    _dictionary["try"] -= _dictionary["finaly"];
+
+                //
+                //  Ban words from _banWords and remove all keys with value 0
                 //
 
                 foreach (var item in _banWords)
@@ -239,6 +257,14 @@ namespace Minecraft
                 if (_dictionary.ContainsKey("while"))
                     if (_dictionary["while"] == 0)
                         _dictionary.Remove("while");
+
+                if (_dictionary.ContainsKey("if"))
+                    if (_dictionary["if"] == 0)
+                        _dictionary.Remove("if");
+
+                if (_dictionary.ContainsKey("try"))
+                    if (_dictionary["try"] == 0)
+                        _dictionary.Remove("try");
 
                 _listDictionary.Add(_dictionary);   
             }

@@ -62,17 +62,8 @@ namespace Minecraft
                 if (_dict.ContainsKey(_methodName))
                 {                    
                     _dict.Remove(_methodName);
-
-                    int _size = 0;
-
-                    foreach (var item in _dict.Keys)
-                        if (Analyze._operators.Contains(item))                            
-                            _size++;
-
-                    if (_size >= _dict.Count / 2)
-                        dataGridView1.Rows.Add(_size);
-                    else
-                        dataGridView1.Rows.Add(_dict.Count - _size);
+                   
+                    dataGridView1.Rows.Add(_dict.Count * 2);
 
                     i = 1; j = 1; N1 = 0; N2 = 0; way = 0;                     
 
@@ -95,12 +86,31 @@ namespace Minecraft
                                 dataGridView1[1, way].Value = _oper + "}";
                             else if (_oper == "[")
                                 dataGridView1[1, way].Value = _oper + "]";
+                            else if (_oper == "catch")
+                                dataGridView1[1, way].Value = "try.." + _oper;
+                            else if (_oper == "finaly")
+                                dataGridView1[1, way].Value = "try.." + _oper;
+                            else if (_oper == "[")
+                                dataGridView1[1, way].Value = _oper + "]";
+                            else if (_oper == "else")
+                                dataGridView1[1, way].Value = "if.." + _oper;
                             else
                                 dataGridView1[1, way].Value = _oper;
 
                             dataGridView1[2, way].Value = _dict[_oper];
                             way++;
                             _dict.Remove(_oper);
+                        }
+
+                    foreach (var _oper in Analyze.FindMethodNames(_FilePath))
+                        if (_dict.ContainsKey(_oper.Substring(0, _oper.Length - 2)))
+                        {
+                            N1 += _dict[_oper.Substring(0, _oper.Length - 2)];
+                            dataGridView1[1, way].Value = _oper;
+                            dataGridView1[0, way].Value = i++;
+                            dataGridView1[2, way].Value = _dict[_oper.Substring(0, _oper.Length - 2)];
+                            _dict.Remove(_oper.Substring(0, _oper.Length - 2));
+                            way++;
                         }
 
                     //
