@@ -12,32 +12,30 @@ namespace Minecraft
                                             "*", "/", "%", "!", "=", "+", "-", "{", "(", ".", ";",
                                             ":", "[", ",", "??" };
 
-        static public string[] _functions = { "random", "print", "println", "toString" };
+        static public string[] _functions = { "random", "print", "println", "toString", "abs" };
 
         static private string[] _banWords = { "Math", "System", "", "out", "IO", "int", "float",
                                               "double", "public", "static", "void", "main", "String",
-                                              "args", "Random", "Color", "Font", "File" };
+                                              "args", "Random", "Color", "Font", "File", "Timer" };
 
         static public string[] _operators = { "for", "if", "switch", "case", "do", "while", "break",
                                               "continue", "goto", "new", "random", "print", "println",
                                               "==", "||", "&&", "&", "|", "<", ">", "!=", "++", "--",
                                               "*", "/", "%", "!", "=", "+", "-", "{", "(", ".", ";",
                                               ":", "[", ",", "else", "toString", "??", "try", "catch",
-                                              "finaly"};
+                                              "finaly", "abs", "default"};
 
         static private int Count(string _str, string _sym)
         {
             if (_sym.Length > _str.Length)
-                return 0;
+                return 0;            
 
             int _counter = 0;
-            string temp;
-            for (int i = 0; i < _str.Length - _sym.Length; i++)
-            {
-                temp = _str.Substring(i, _sym.Length);
-                if (temp == _sym)
+            
+            for (int i = 0; i < _str.Length - _sym.Length; i++)          
+                if (_str.Substring(i, _sym.Length) == _sym)
                     _counter++;
-            }
+
             return _counter;
         }
 
@@ -143,7 +141,7 @@ namespace Minecraft
 
             foreach (var itemG in code)            
             {
-                string temp = FindCode(itemG);                
+                string __code = FindCode(itemG);                
 
                 var _dictionary = new Dictionary<string, int>();                
                 
@@ -156,10 +154,10 @@ namespace Minecraft
                 //
 
                 foreach (var item in _symbols)
-                    if (Count(temp, item) != 0)
+                    if (Count(__code, item) != 0)
                     {
-                        _dictionary.Add(item, Count(temp, item));
-                        temp = temp.Replace(item, " ");
+                        _dictionary.Add(item, Count(__code, item));
+                        __code = __code.Replace(item, " ");
                     }
                 
                 //
@@ -169,18 +167,18 @@ namespace Minecraft
                 int flag = 0, tmp = 0;
                 string word;
 
-                for (int i = 0; i < temp.Length; i++)
-                    if (temp[i] == '"' || temp[i] == '\'')
+                for (int i = 0; i < __code.Length; i++)
+                    if (__code[i] == '"' || __code[i] == '\'')
                     {
                         flag++;
                         if (flag == 2)
                         {
-                            word = temp.Substring(tmp, i - tmp + 1);
+                            word = __code.Substring(tmp, i - tmp + 1);
                             if (!_dictionary.ContainsKey(word))
                                 _dictionary.Add(word, 1);
                             else
                                 _dictionary[word]++;
-                            temp = temp.Remove(tmp, i - tmp + 1);
+                            __code = __code.Remove(tmp, i - tmp + 1);
                             flag = 0;
                         }
                         tmp = i;
@@ -190,13 +188,13 @@ namespace Minecraft
                 // Create List with last words
                 //
 
-                temp = temp.Replace("}", " ");
-                temp = temp.Replace("]", " ");
-                temp = temp.Replace(")", " ");
+                __code = __code.Replace("}", " ");
+                __code = __code.Replace("]", " ");
+                __code = __code.Replace(")", " ");
 
                 var _otherWords = new List<string>();
 
-                foreach (var item in temp.Split(' '))
+                foreach (var item in __code.Split(' '))
                     if (item != "")
                         _otherWords.Add(item);
 
@@ -224,6 +222,12 @@ namespace Minecraft
 
                 if (_dictionary.ContainsKey("while") && _dictionary.ContainsKey("do"))
                     _dictionary["while"] -= _dictionary["do"];
+
+                if (_dictionary.ContainsKey("while"))
+                    _dictionary["("] -= _dictionary["while"];
+
+                if (_dictionary.ContainsKey("do"))
+                    _dictionary["("] -= _dictionary["do"];
 
                 //
                 // if else

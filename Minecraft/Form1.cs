@@ -15,7 +15,7 @@ namespace Minecraft
         private string _FilePath;
         public Form1()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -130,8 +130,12 @@ namespace Minecraft
                     break;
                 }
 
-            LengthDick.Text = 
+            LengthDick.Text =
                 "Length     : " + (N1 + N2).ToString() + "\r\n" +
+                "Operators  : " + (N1).ToString() + "\r\n" +
+                "Operands   : " + (N2).ToString() + "\r\n" +
+                "j Operators: " + (i - 1).ToString() + "\r\n" +
+                "i Operands : " + (j - 1).ToString() + "\r\n" +
                 "Dictionary : " + (i + j - 2).ToString() + "\r\n" +
                 "Volume     : " + ((int)((N1 + N2) * Math.Log(i + j - 2, 2))).ToString();
 
